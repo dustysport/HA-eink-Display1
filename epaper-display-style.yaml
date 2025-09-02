@@ -65,7 +65,7 @@ font:
        
   - file: 'fonts/Roboto-Medium.ttf'
     id: sub_sensor_font
-    size: 30
+    size: 20
     glyphs:
       ['&', '@', '!', ',', '.', '"', '%', '(', ')', '+', '-', '_', ':', '°', '0',
        '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
@@ -167,26 +167,23 @@ display:
     model: 7.50inv2p
     lambda: |-
 
-      it.image(0, 0, id(bg_image))
+      it.image(0, 0, id(bg_image));
 
       /* PLAN 1 */
       it.print(55, 45, id(sub_sensor_font), "Philodendron Erubescen");
-      it.printf(725, 45, id(main_sensor_unit), TextAlign::TOP_RIGHT, "%.1f%%", id(plant1_moisture).state);
-      it.line(0, 120, 800, 120);
+      it.printf(55, 75, id(main_sensor_unit), "%.1f%%", id(plant1_moisture).state);
 
       /* PLAN 2 */
       it.print(55, 166, id(sub_sensor_font), "Philodendron Hastatum");
-      it.printf(725, 166, id(main_sensor_unit), TextAlign::TOP_RIGHT, "%.1f%%", id(plant2_moisture).state);
-      it.line(0, 240, 800, 240);
+      it.printf(55, 196, id(main_sensor_unit), "%.1f%%", id(plant2_moisture).state);
 
       /* PLAN 3 */
       it.print(55, 286, id(sub_sensor_font), "Syngonium");
-      it.printf(725, 286, id(main_sensor_unit), TextAlign::TOP_RIGHT, "%.1f%%", id(plant3_moisture).state);
-      it.line(0, 360, 800, 360);       
+      it.printf(55, 316, id(main_sensor_unit), "%.1f%%", id(plant3_moisture).state);    
       
       /* PLAN 4 */
       it.print(55, 406, id(sub_sensor_font), "ZZ");
-      it.printf(725, 406, id(main_sensor_unit), TextAlign::TOP_RIGHT, "%.1f%%", id(plant4_moisture).state);
+      it.printf(55, 436, id(main_sensor_unit), "%.1f%%", id(plant4_moisture).state);
 
       /* FOOTER */
       it.print(10, 440 , id(mdi_wifi), TextAlign::TOP_LEFT , "󰁹");
