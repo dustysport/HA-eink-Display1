@@ -31,6 +31,11 @@ globals:
 web_server:
   port: 80
 
+image:
+  - file: "images/flower.png"
+    type: binary
+    id: bg_image
+
 font:
 
   - file: 'fonts/Roboto-Medium.ttf'
@@ -161,6 +166,8 @@ display:
     reset_pin: GPIO26
     model: 7.50inv2p
     lambda: |-
+
+      it.image(0, 0, id(bg_image))
 
       /* PLAN 1 */
       it.print(55, 45, id(sub_sensor_font), "Philodendron Erubescen");
