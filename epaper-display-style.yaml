@@ -24,15 +24,54 @@ wifi:
   password: CloudJuice@apartment
 
 globals:
-   - id: is_sensor_ready
-     type: bool
-     initial_value: "false"
-  
+  - id: is_sensor_ready
+    type: bool
+    initial_value: "false"
+  - id: min_display_x
+    type: int
+    initial_value: '60'
+  - id: plant1_moist_bar
+    type: int
+    initial_value: '3'
+  - id: plant1_moist_bar_label_x
+    type: int
+    initial_value: '260'
+  - id: plant1_moist_bar_alert_x
+    type: int
+    initial_value: '250'
+  - id: plant2_moist_bar
+    type: int
+    initial_value: '3'
+  - id: plant2_moist_bar_label_x
+    type: int
+    initial_value: '260'
+  - id: plant2_moist_bar_alert_x
+    type: int
+    initial_value: '250'
+  - id: plant3_moist_bar
+    type: int
+    initial_value: '3'
+  - id: plant3_moist_bar_label_x
+    type: int
+    initial_value: '260'
+  - id: plant3_moist_bar_alert_x
+    type: int
+    initial_value: '250'
+  - id: plant4_moist_bar
+    type: int
+    initial_value: '3'
+  - id: plant4_moist_bar_label_x
+    type: int
+    initial_value: '260'
+  - id: plant4_moist_bar_alert_x
+    type: int
+    initial_value: '250'
+
 web_server:
   port: 80
 
 image:
-  - file: "images/flower.png"
+  - file: "images/flower2.png"
     type: binary
     id: bg_image
 
@@ -56,12 +95,10 @@ font:
     id: main_sensor_unit
     size: 20
     glyphs:
-      ['&', '@', '!', ',', '.', '"', '%', '(', ')', '+', '-', '_', ':', '°', '0',
-       '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
-       'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-       'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-       'u', 'v', 'w', 'x', 'y', 'z','å', 'ä', 'ö', '/','º','µ','³']
+      [
+        0123456789,
+        ".","%",
+       ]
        
   - file: 'fonts/Roboto-Medium.ttf'
     id: sub_sensor_font
@@ -84,7 +121,7 @@ font:
   
   - file: 'fonts/materialdesignicons-webfont.ttf'
     id:  mdi_small
-    size: 31
+    size: 26
     glyphs: [
       # Wifi
       '󰤫', # mdi-wifi-strength-alert-outline
@@ -93,7 +130,9 @@ font:
       '󰤥', # mdi-wifi-strength-3
       '󰤨', # mdi-wifi-strength-4
       '󰔏', # mdi-themometer
-      '󰖎' # mdi-water-percent
+      "\U000F058E", #mdi-water-percent
+      "\U000F007B", #mdi-battery-20
+      "\U000F10CD" #mdi-battery-alert-variant-outine
       ]
 
   - file: 'fonts/materialdesignicons-webfont.ttf'
@@ -105,8 +144,7 @@ font:
       '󰤟', # mdi-wifi-strength-1
       '󰤢', # mdi-wifi-strength-2
       '󰤥', # mdi-wifi-strength-3
-      '󰤨',  # mdi-wifi-strength-4
-      '󰁹' #mdi-battery
+      '󰤨'  # mdi-wifi-strength-4
       ]
 
   - file: 'fonts/materialdesignicons-webfont.ttf'
@@ -125,31 +163,113 @@ time:
   - platform: homeassistant
     id: homeassistant_time
 
+script:
+  - id: set_plant1_moist_bar
+    then:
+      lambda: |-
+        id(plant1_moist_bar) = int((id(plant1_moisture).state)*2);
+        if(id(plant1_moisture).state < 25) {
+          id(plant1_moist_bar_label_x) = int((id(plant1_moist_bar))+(id(min_display_x))+3);
+          id(plant1_moist_bar_alert_x) = int((id(plant1_moist_bar))+(id(min_display_x))+41);
+        } else {
+        id(plant1_moist_bar_label_x) = int((id(plant1_moist_bar))+(id(min_display_x))+3);
+        }
+  - id: set_plant2_moist_bar
+    then:
+      lambda: |-
+        id(plant2_moist_bar) = int((id(plant2_moisture).state)*2);
+        if(id(plant2_moisture).state < 25) {
+          id(plant2_moist_bar_label_x) = int((id(plant2_moist_bar))+(id(min_display_x))+3);
+          id(plant2_moist_bar_alert_x) = int((id(plant2_moist_bar))+(id(min_display_x))+41);
+        } else {
+        id(plant2_moist_bar_label_x) = int((id(plant2_moist_bar))+(id(min_display_x))+3);
+        }
+  - id: set_plant3_moist_bar
+    then:
+      lambda: |-
+        id(plant3_moist_bar) = int((id(plant3_moisture).state)*2);
+        if(id(plant3_moisture).state < 25) {
+          id(plant3_moist_bar_label_x) = int((id(plant3_moist_bar))+(id(min_display_x))+3);
+          id(plant3_moist_bar_alert_x) = int((id(plant3_moist_bar))+(id(min_display_x))+41);
+        } else {
+        id(plant3_moist_bar_label_x) = int((id(plant3_moist_bar))+(id(min_display_x))+3);
+        }
+  - id: set_plant4_moist_bar
+    then:
+      lambda: |-
+        id(plant4_moist_bar) = int((id(plant4_moisture).state)*2);
+        if(id(plant4_moisture).state < 25) {
+          id(plant4_moist_bar_label_x) = int((id(plant4_moist_bar))+(id(min_display_x))+3);
+          id(plant4_moist_bar_alert_x) = int((id(plant4_moist_bar))+(id(min_display_x))+41);
+        } else {
+        id(plant4_moist_bar_label_x) = int((id(plant4_moist_bar))+(id(min_display_x))+3);
+        }
+
 sensor:
   - platform: homeassistant
     entity_id: sensor.philodendron_erubescen_soil_moisture
     id: plant1_moisture
+    accuracy_decimals: 0
+    on_value:
+      then:
+        - script.execute: set_plant1_moist_bar
+  
+  - platform: homeassistant
+    entity_id: sensor.plt_1b_3_battery_level
+    id: plant1_battery_level
 
   - platform: homeassistant
     entity_id: sensor.philodendron_hastatum_soil_moisture
     id: plant2_moisture
+    on_value:
+      then:
+        - script.execute: set_plant2_moist_bar
   
+  - platform: homeassistant
+    entity_id: sensor.plt_1b_4_battery_level
+    id: plant2_battery_level
+
   - platform: homeassistant
     entity_id: sensor.syngonium_soil_moisture
     id: plant3_moisture
+    on_value:
+      then:
+        - script.execute: set_plant3_moist_bar
+
+  - platform: homeassistant
+    entity_id: sensor.apollo_plt_1b_be1fc4_battery_level
+    id: plant3_battery_level
   
   - platform: homeassistant
     entity_id: sensor.zamioculcas_zamiifolia_soil_moisture
     id: plant4_moisture
+    on_value:
+      then:
+        - script.execute: set_plant4_moist_bar
+
+  - platform: homeassistant
+    entity_id: sensor.apollo_plt_1b_151fc8_battery_level
+    id: plant4_battery_level
 
   - platform: wifi_signal
     name: "WiFi Signal Sensor"
     id: wifisignal
     update_interval: 60s
 
+  - platform: uptime
+    type: seconds
+    name: Uptime Sensor
+
 spi:
   clk_pin: GPIO13
   mosi_pin: GPIO14
+
+color:
+  - id: color_white
+    red_int: 0
+    green_int: 0
+    blue_int: 0
+    white_int: 255
 
 display:
   - platform: waveshare_epaper
@@ -169,49 +289,98 @@ display:
 
       it.image(0, 0, id(bg_image));
 
-      /* PLAN 1 */
-      it.print(55, 45, id(sub_sensor_font), "Philodendron Erubescen");
-      it.printf(55, 75, id(main_sensor_unit), "%.1f%%", id(plant1_moisture).state);
-
-      /* PLAN 2 */
-      it.print(55, 166, id(sub_sensor_font), "Philodendron Hastatum");
-      it.printf(55, 196, id(main_sensor_unit), "%.1f%%", id(plant2_moisture).state);
-
-      /* PLAN 3 */
-      it.print(55, 286, id(sub_sensor_font), "Syngonium");
-      it.printf(55, 316, id(main_sensor_unit), "%.1f%%", id(plant3_moisture).state);    
+      /* PLANT 1 */
+      it.print(55, 41, id(sub_sensor_font), COLOR_OFF, "Philodendron Erubescen");
+      if (id(plant1_battery_level).state < 25) {
+        it.print(275, 41, id(mdi_small), COLOR_OFF, "\U000F007B"); //10.2px per character for x value
+      } else if (id(plant1_battery_level).state < 15) {
+        it.print(275, 41, id(mdi_small), COLOR_OFF, "\U000F10CD");
+      }
+      if(id(plant1_moisture).state < 25) {
+        it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant1_moisture).state);
+        it.print(id(plant1_moist_bar_alert_x), 88, id(mdi_small), COLOR_OFF, "\U000F058E");
+      } else {
+        it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant1_moisture).state);
+      }
+      it.filled_rectangle(60, 76, 4, 40, COLOR_OFF); // bar chart y axis
+      it.filled_rectangle(60, 88, id(plant1_moist_bar), 25, COLOR_OFF);
+      it.filled_rectangle(60, 116, 200, 4, COLOR_OFF); // bar chart x axis
+      it.filled_rectangle(110, 113, 2, 12, COLOR_OFF); // 25% hash
+      it.filled_rectangle(160, 113, 2, 12, COLOR_OFF); // 50% hash
+      it.filled_rectangle(210, 113, 2, 12, COLOR_OFF); // 75% hash
+      it.print(104, 125, id(footer_font), COLOR_OFF, "25%");
+      it.print(154, 125, id(footer_font), COLOR_OFF, "50%");
+      it.print(204, 125, id(footer_font), COLOR_OFF, "75%");
       
-      /* PLAN 4 */
-      it.print(55, 406, id(sub_sensor_font), "ZZ");
-      it.printf(55, 436, id(main_sensor_unit), "%.1f%%", id(plant4_moisture).state);
+
+      /* PLANT 2 */
+      it.print(55, 151, id(sub_sensor_font), COLOR_OFF, "Philodendron Hastatum");
+      if (id(plant2_battery_level).state < 25) {
+        it.print(215, 151, id(mdi_small), COLOR_OFF, "\U000F007B"); //10.2px per character for x value
+      } else if (id(plant2_battery_level).state < 15) {
+        it.print(215, 151, id(mdi_small), COLOR_OFF, "\U000F10CD");
+      }
+      if(id(plant2_moisture).state < 25) {
+        it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant2_moisture).state);
+        it.print(id(plant2_moist_bar_alert_x), 198, id(mdi_small), COLOR_OFF, "\U000F058E");
+      } else {
+        it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant2_moisture).state);
+      }
+      it.filled_rectangle(60, 186, 4, 40, COLOR_OFF); // bar chart y axis
+      it.filled_rectangle(60, 198, id(plant2_moist_bar), 25, COLOR_OFF);
+      it.filled_rectangle(60, 226, 200, 4, COLOR_OFF); // bar chart x axis
+      it.filled_rectangle(110, 223, 2, 12, COLOR_OFF); // 25% hash
+      it.filled_rectangle(160, 223, 2, 12, COLOR_OFF); // 50% hash
+      it.filled_rectangle(210, 223, 2, 12, COLOR_OFF); // 75% hash
+      it.print(104, 235, id(footer_font), COLOR_OFF, "25%");
+      it.print(154, 235, id(footer_font), COLOR_OFF, "50%");
+      it.print(204, 235, id(footer_font), COLOR_OFF, "75%");
+
+      /* PLANT 3 */
+      it.print(55, 260, id(sub_sensor_font), COLOR_OFF, "Syngonium");
+      if (id(plant3_battery_level).state < 25) {
+        it.print(147, 260, id(mdi_small), COLOR_OFF, "\U000F007B"); //10.2px per character for x value
+      } else if (id(plant3_battery_level).state < 15) {
+        it.print(147, 260, id(mdi_small), COLOR_OFF, "\U000F10CD");
+      }
+      if(id(plant3_moisture).state < 25) {
+        it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant3_moisture).state);
+        it.print(id(plant3_moist_bar_alert_x), 307, id(mdi_small), COLOR_OFF, "\U000F058E");
+      } else {
+        it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant3_moisture).state);
+      }
+      it.filled_rectangle(60, 295, 4, 40, COLOR_OFF); // bar chart y axis
+      it.filled_rectangle(60, 307, id(plant3_moist_bar), 25, COLOR_OFF);
+      it.filled_rectangle(60, 335, 200, 4, COLOR_OFF); // bar chart x axis
+      it.filled_rectangle(110, 332, 2, 12, COLOR_OFF); // 25% hash
+      it.filled_rectangle(160, 332, 2, 12, COLOR_OFF); // 50% hash
+      it.filled_rectangle(210, 332, 2, 12, COLOR_OFF); // 75% hash
+      it.print(104, 344, id(footer_font), COLOR_OFF, "25%");
+      it.print(154, 344, id(footer_font), COLOR_OFF, "50%");
+      it.print(204, 344, id(footer_font), COLOR_OFF, "75%");
+      
+      /* PLANT 4 */
+      it.print(55, 371, id(sub_sensor_font), COLOR_OFF, "ZZ");
+      if (id(plant4_battery_level).state < 25) {
+        it.print(76, 371, id(mdi_small), COLOR_OFF, "\U000F007B"); //10.2px per character for x value
+      } else if (id(plant4_battery_level).state < 15) {
+        it.print(76, 371, id(mdi_small), COLOR_OFF, "\U000F10CD");
+      }
+      if(id(plant4_moisture).state < 25) {
+        it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant4_moisture).state);
+        it.print(id(plant4_moist_bar_alert_x), 418, id(mdi_small), COLOR_OFF, "\U000F058E");
+      } else {
+        it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant4_moisture).state);
+      }
+      it.filled_rectangle(60, 406, 4, 40, COLOR_OFF); // bar chart y axis
+      it.filled_rectangle(60, 418, id(plant4_moist_bar), 25, COLOR_OFF);
+      it.filled_rectangle(60, 446, 200, 4, COLOR_OFF); // bar chart x axis
+      it.filled_rectangle(110, 443, 2, 12, COLOR_OFF); // 25% hash
+      it.filled_rectangle(160, 443, 2, 12, COLOR_OFF); // 50% hash
+      it.filled_rectangle(210, 443, 2, 12, COLOR_OFF); // 75% hash
+      it.print(104, 455, id(footer_font), COLOR_OFF, "25%");
+      it.print(154, 455, id(footer_font), COLOR_OFF, "50%");
+      it.print(204, 455, id(footer_font), COLOR_OFF, "75%");
 
       /* FOOTER */
-      it.print(10, 440 , id(mdi_wifi), TextAlign::TOP_LEFT , "󰁹");
-      it.strftime(355, 440 , id(footer_font), TextAlign::TOP_LEFT , "%d/%b/%Y %H:%M", id(homeassistant_time).now());
-      
-      /* WiFi Signal Strenght */
-      if(id(wifisignal).has_state()) {
-        int x = 55;
-        int y = 440;
-        if (id(wifisignal).state >= -50) {
-            //Excellent
-            it.print(x, y, id(mdi_wifi), TextAlign::BASELINE_CENTER, "󰤨");
-            ESP_LOGI("WiFi", "Exellent");
-        } else if (id(wifisignal).state  >= -60) {
-            //Good
-            it.print(x, y, id(mdi_wifi), TextAlign::BASELINE_CENTER, "󰤥");
-            ESP_LOGI("WiFi", "Good");
-        } else if (id(wifisignal).state  >= -75) {
-            //Fair
-            it.print(x, y, id(mdi_wifi), TextAlign::BASELINE_CENTER, "󰤢");
-            ESP_LOGI("WiFi", "Fair");
-        } else if (id(wifisignal).state  >= -100) {
-            //Weak
-            it.print(x, y, id(mdi_wifi), TextAlign::BASELINE_CENTER, "󰤟");
-            ESP_LOGI("WiFi", "Weak");
-        } else {
-            //Unlikely working signal
-            it.print(x, y, id(mdi_wifi), TextAlign::BASELINE_CENTER, "󰤫");
-            ESP_LOGI("WiFi", "Unlikely");
-        }
-      }
+      it.strftime(355, 455 , id(footer_font), COLOR_OFF, TextAlign::TOP_LEFT , "%d/%b/%Y %H:%M", id(homeassistant_time).now());
