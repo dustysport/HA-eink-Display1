@@ -76,48 +76,17 @@ image:
     id: bg_image
 
 font:
-
-  - file: 'fonts/Roboto-Medium.ttf'
-    id: roboto_med_30
-    size: 30
-  - file: 'fonts/Roboto-Regular.ttf'
+  - file: "gfonts://Kablammo"
     id: footer_font
     size: 15
-    glyphs:
-      ['&', '@', '!', ',', '.', '"', '%', '(', ')', '+', '-', '_', ':', '°', '0',
-       '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
-       'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-       'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-       'u', 'v', 'w', 'x', 'y', 'z','å', 'ä', 'ö', '/','º','µ','³']
-
-  - file: 'fonts/Roboto-Regular.ttf'
+  
+  - file: "gfonts://Kablammo"
     id: main_sensor_unit
     size: 20
-    glyphs:
-      [
-        0123456789,
-        ".","%",
-       ]
-       
-  - file: 'fonts/Roboto-Medium.ttf'
+
+  - file: "gfonts://Kablammo"
     id: sub_sensor_font
     size: 20
-    glyphs:
-      ['&', '@', '!', ',', '.', '"', '%', '(', ')', '+', '-', '_', ':', '°', '0',
-       '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
-       'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-       'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-       'u', 'v', 'w', 'x', 'y', 'z','å', 'ä', 'ö', '/','º','µ','³']
-
-  - file: 'fonts/Roboto-Medium.ttf'
-    id: location_title
-    size: 21
-  
-  - file: 'fonts/Roboto-Bold.ttf'
-    id: main_sensor_font
-    size: 80
   
   - file: 'fonts/materialdesignicons-webfont.ttf'
     id:  mdi_small
@@ -130,35 +99,14 @@ font:
       '󰤥', # mdi-wifi-strength-3
       '󰤨', # mdi-wifi-strength-4
       '󰔏', # mdi-themometer
+      "\U000F1133", #mdi-bottle-tonic-skull-outline
+      "\U000F0BC7", #mdi-skull-crossbones-outline
+      "\U000F0BC8", #mdi-skull-outline
       "\U000F058E", #mdi-water-percent
       "\U000F007B", #mdi-battery-20
       "\U000F10CD" #mdi-battery-alert-variant-outine
       ]
 
-  - file: 'fonts/materialdesignicons-webfont.ttf'
-    id:  mdi_wifi
-    size: 20
-    glyphs: [
-      # Wifi
-      '󰤫', # mdi-wifi-strength-alert-outline
-      '󰤟', # mdi-wifi-strength-1
-      '󰤢', # mdi-wifi-strength-2
-      '󰤥', # mdi-wifi-strength-3
-      '󰤨'  # mdi-wifi-strength-4
-      ]
-
-  - file: 'fonts/materialdesignicons-webfont.ttf'
-    id:  mdi_med
-    size: 33
-    glyphs: [
-      # Wifi
-      '󰤫', # mdi-wifi-strength-alert-outline
-      '󰤟', # mdi-wifi-strength-1
-      '󰤢', # mdi-wifi-strength-2
-      '󰤥', # mdi-wifi-strength-3
-      '󰤨', # mdi-wifi-strength-4
-      '󰀦' # mdi-alert
-      ]
 time:
   - platform: homeassistant
     id: homeassistant_time
@@ -292,13 +240,13 @@ display:
       /* PLANT 1 */
       it.print(55, 41, id(sub_sensor_font), COLOR_OFF, "Philodendron Erubescen");
       if (id(plant1_battery_level).state < 25) {
-        it.print(275, 41, id(mdi_small), COLOR_OFF, "\U000F007B"); //10.2px per character for x value
+        it.print(275, 41, id(mdi_small), COLOR_OFF, "\U000F0BC8"); //10.2px per character for x value
       } else if (id(plant1_battery_level).state < 15) {
-        it.print(275, 41, id(mdi_small), COLOR_OFF, "\U000F10CD");
+        it.print(275, 41, id(mdi_small), COLOR_OFF, "\U000F0BC7");
       }
       if(id(plant1_moisture).state < 25) {
         it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant1_moisture).state);
-        it.print(id(plant1_moist_bar_alert_x), 88, id(mdi_small), COLOR_OFF, "\U000F058E");
+        it.print(id(plant1_moist_bar_alert_x), 88, id(mdi_small), COLOR_OFF, "\U000F1133");
       } else {
         it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant1_moisture).state);
       }
@@ -316,13 +264,13 @@ display:
       /* PLANT 2 */
       it.print(55, 151, id(sub_sensor_font), COLOR_OFF, "Philodendron Hastatum");
       if (id(plant2_battery_level).state < 25) {
-        it.print(215, 151, id(mdi_small), COLOR_OFF, "\U000F007B"); //10.2px per character for x value
+        it.print(215, 151, id(mdi_small), COLOR_OFF, "\U000F0BC8"); //10.2px per character for x value
       } else if (id(plant2_battery_level).state < 15) {
-        it.print(215, 151, id(mdi_small), COLOR_OFF, "\U000F10CD");
+        it.print(215, 151, id(mdi_small), COLOR_OFF, "\U000F0BC7");
       }
       if(id(plant2_moisture).state < 25) {
         it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant2_moisture).state);
-        it.print(id(plant2_moist_bar_alert_x), 198, id(mdi_small), COLOR_OFF, "\U000F058E");
+        it.print(id(plant2_moist_bar_alert_x), 198, id(mdi_small), COLOR_OFF, "\U000F1133");
       } else {
         it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant2_moisture).state);
       }
@@ -339,13 +287,13 @@ display:
       /* PLANT 3 */
       it.print(55, 260, id(sub_sensor_font), COLOR_OFF, "Syngonium");
       if (id(plant3_battery_level).state < 25) {
-        it.print(147, 260, id(mdi_small), COLOR_OFF, "\U000F007B"); //10.2px per character for x value
+        it.print(147, 260, id(mdi_small), COLOR_OFF, "\U000F0BC7"); //10.2px per character for x value
       } else if (id(plant3_battery_level).state < 15) {
-        it.print(147, 260, id(mdi_small), COLOR_OFF, "\U000F10CD");
+        it.print(147, 260, id(mdi_small), COLOR_OFF, "\U000F0BC8");
       }
       if(id(plant3_moisture).state < 25) {
         it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant3_moisture).state);
-        it.print(id(plant3_moist_bar_alert_x), 307, id(mdi_small), COLOR_OFF, "\U000F058E");
+        it.print(id(plant3_moist_bar_alert_x), 307, id(mdi_small), COLOR_OFF, "\U000F1133");
       } else {
         it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant3_moisture).state);
       }
@@ -362,13 +310,13 @@ display:
       /* PLANT 4 */
       it.print(55, 371, id(sub_sensor_font), COLOR_OFF, "ZZ");
       if (id(plant4_battery_level).state < 25) {
-        it.print(76, 371, id(mdi_small), COLOR_OFF, "\U000F007B"); //10.2px per character for x value
+        it.print(76, 371, id(mdi_small), COLOR_OFF, "\U000F0BC7"); //10.2px per character for x value
       } else if (id(plant4_battery_level).state < 15) {
-        it.print(76, 371, id(mdi_small), COLOR_OFF, "\U000F10CD");
+        it.print(76, 371, id(mdi_small), COLOR_OFF, "\U000F0BC8");
       }
       if(id(plant4_moisture).state < 25) {
         it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant4_moisture).state);
-        it.print(id(plant4_moist_bar_alert_x), 418, id(mdi_small), COLOR_OFF, "\U000F058E");
+        it.print(id(plant4_moist_bar_alert_x), 418, id(mdi_small), COLOR_OFF, "\U000F1133");
       } else {
         it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant4_moisture).state);
       }
