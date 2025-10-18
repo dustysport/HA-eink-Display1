@@ -71,7 +71,7 @@ web_server:
   port: 80
 
 image:
-  - file: "images/ei75-skeletongreeper-i.bmp"
+  - file: "images/ei75-skullflowers.bmp"
     type: binary
     id: bg_image
 
@@ -238,97 +238,97 @@ display:
       it.image(0, 0, id(bg_image));
 
       /* PLANT 1 */
-      it.print(55, 41, id(sub_sensor_font), "Philodendron Erubescen");
+      it.print(55, 41, id(sub_sensor_font), COLOR_OFF, "Philodendron Erubescen");
       if (id(plant1_battery_level).state < 25) {
-        it.print(275, 41, id(mdi_small), "\U000F0BC8"); //10.2px per character for x value
+        it.print(275, 41, id(mdi_small), COLOR_OFF, "\U000F0BC8"); //10.2px per character for x value
       } else if (id(plant1_battery_level).state < 15) {
-        it.print(275, 41, id(mdi_small), "\U000F0BC7");
+        it.print(275, 41, id(mdi_small), COLOR_OFF, "\U000F0BC7");
       }
       if(id(plant1_moisture).state < 25) {
-        it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), "%.0f%%", id(plant1_moisture).state);
-        it.print(id(plant1_moist_bar_alert_x), 88, id(mdi_small), "\U000F1133");
+        it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant1_moisture).state);
+        it.print(id(plant1_moist_bar_alert_x), 88, id(mdi_small), COLOR_OFF, "\U000F1133");
       } else {
-        it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), "%.0f%%", id(plant1_moisture).state);
+        it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant1_moisture).state);
       }
-      it.filled_rectangle(60, 76, 4, 40); // bar chart y axis
-      it.filled_rectangle(60, 88, id(plant1_moist_bar), 25);
-      it.filled_rectangle(60, 116, 200, 4); // bar chart x axis
-      it.filled_rectangle(110, 113, 2, 12); // 25% hash
-      it.filled_rectangle(160, 113, 2, 12); // 50% hash
-      it.filled_rectangle(210, 113, 2, 12); // 75% hash
-      it.print(104, 125, id(footer_font), "25%");
-      it.print(154, 125, id(footer_font), "50%");
-      it.print(204, 125, id(footer_font), "75%");
+      it.filled_rectangle(60, 76, 4, 40, COLOR_OFF); // bar chart y axis
+      it.filled_rectangle(60, 88, id(plant1_moist_bar), 25, COLOR_OFF);
+      it.filled_rectangle(60, 116, 200, 4, COLOR_OFF); // bar chart x axis
+      it.filled_rectangle(110, 113, 2, 12, COLOR_OFF); // 25% hash
+      it.filled_rectangle(160, 113, 2, 12, COLOR_OFF); // 50% hash
+      it.filled_rectangle(210, 113, 2, 12, COLOR_OFF); // 75% hash
+      it.print(104, 125, id(footer_font), COLOR_OFF, "25%");
+      it.print(154, 125, id(footer_font), COLOR_OFF, "50%");
+      it.print(204, 125, id(footer_font), COLOR_OFF, "75%");
       
 
       /* PLANT 2 */
-      it.print(55, 151, id(sub_sensor_font), "Philodendron Hastatum");
+      it.print(55, 151, id(sub_sensor_font), COLOR_OFF, "Philodendron Hastatum");
       if (id(plant2_battery_level).state < 25) {
-        it.print(215, 151, id(mdi_small), "\U000F0BC8"); //10.2px per character for x value
+        it.print(215, 151, id(mdi_small), COLOR_OFF, "\U000F0BC8"); //10.2px per character for x value
       } else if (id(plant2_battery_level).state < 15) {
-        it.print(215, 151, id(mdi_small), "\U000F0BC7");
+        it.print(215, 151, id(mdi_small), COLOR_OFF, "\U000F0BC7");
       }
       if(id(plant2_moisture).state < 25) {
-        it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), "%.0f%%", id(plant2_moisture).state);
-        it.print(id(plant2_moist_bar_alert_x), 198, id(mdi_small), "\U000F1133");
+        it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant2_moisture).state);
+        it.print(id(plant2_moist_bar_alert_x), 198, id(mdi_small), COLOR_OFF, "\U000F1133");
       } else {
-        it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), "%.0f%%", id(plant2_moisture).state);
+        it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant2_moisture).state);
       }
-      it.filled_rectangle(60, 186, 4, 40); // bar chart y axis
-      it.filled_rectangle(60, 198, id(plant2_moist_bar), 25);
-      it.filled_rectangle(60, 226, 200, 4); // bar chart x axis
-      it.filled_rectangle(110, 223, 2, 12); // 25% hash
-      it.filled_rectangle(160, 223, 2, 12); // 50% hash
-      it.filled_rectangle(210, 223, 2, 12); // 75% hash
-      it.print(104, 235, id(footer_font), "25%");
-      it.print(154, 235, id(footer_font), "50%");
-      it.print(204, 235, id(footer_font), "75%");
+      it.filled_rectangle(60, 186, 4, 40, COLOR_OFF); // bar chart y axis
+      it.filled_rectangle(60, 198, id(plant2_moist_bar), 25, COLOR_OFF);
+      it.filled_rectangle(60, 226, 200, 4, COLOR_OFF); // bar chart x axis
+      it.filled_rectangle(110, 223, 2, 12, COLOR_OFF); // 25% hash
+      it.filled_rectangle(160, 223, 2, 12, COLOR_OFF); // 50% hash
+      it.filled_rectangle(210, 223, 2, 12, COLOR_OFF); // 75% hash
+      it.print(104, 235, id(footer_font), COLOR_OFF, "25%");
+      it.print(154, 235, id(footer_font), COLOR_OFF, "50%");
+      it.print(204, 235, id(footer_font), COLOR_OFF, "75%");
 
       /* PLANT 3 */
-      it.print(55, 260, id(sub_sensor_font), "Syngonium");
+      it.print(55, 260, id(sub_sensor_font), COLOR_OFF, "Syngonium");
       if (id(plant3_battery_level).state < 25) {
-        it.print(147, 260, id(mdi_small), "\U000F0BC7"); //10.2px per character for x value
+        it.print(147, 260, id(mdi_small), COLOR_OFF, "\U000F0BC7"); //10.2px per character for x value
       } else if (id(plant3_battery_level).state < 15) {
-        it.print(147, 260, id(mdi_small), "\U000F0BC8");
+        it.print(147, 260, id(mdi_small), COLOR_OFF, "\U000F0BC8");
       }
       if(id(plant3_moisture).state < 25) {
-        it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), "%.0f%%", id(plant3_moisture).state);
-        it.print(id(plant3_moist_bar_alert_x), 307, id(mdi_small), "\U000F1133");
+        it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant3_moisture).state);
+        it.print(id(plant3_moist_bar_alert_x), 307, id(mdi_small), COLOR_OFF, "\U000F1133");
       } else {
-        it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), "%.0f%%", id(plant3_moisture).state);
+        it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant3_moisture).state);
       }
-      it.filled_rectangle(60, 295, 4, 40); // bar chart y axis
-      it.filled_rectangle(60, 307, id(plant3_moist_bar), 25);
-      it.filled_rectangle(60, 335, 200, 4); // bar chart x axis
-      it.filled_rectangle(110, 332, 2, 12); // 25% hash
-      it.filled_rectangle(160, 332, 2, 12); // 50% hash
-      it.filled_rectangle(210, 332, 2, 12); // 75% hash
-      it.print(104, 344, id(footer_font), "25%");
-      it.print(154, 344, id(footer_font), "50%");
-      it.print(204, 344, id(footer_font), "75%");
+      it.filled_rectangle(60, 295, 4, 40, COLOR_OFF); // bar chart y axis
+      it.filled_rectangle(60, 307, id(plant3_moist_bar), 25, COLOR_OFF);
+      it.filled_rectangle(60, 335, 200, 4, COLOR_OFF); // bar chart x axis
+      it.filled_rectangle(110, 332, 2, 12, COLOR_OFF); // 25% hash
+      it.filled_rectangle(160, 332, 2, 12, COLOR_OFF); // 50% hash
+      it.filled_rectangle(210, 332, 2, 12, COLOR_OFF); // 75% hash
+      it.print(104, 344, id(footer_font), COLOR_OFF, "25%");
+      it.print(154, 344, id(footer_font), COLOR_OFF, "50%");
+      it.print(204, 344, id(footer_font), COLOR_OFF, "75%");
       
       /* PLANT 4 */
-      it.print(55, 371, id(sub_sensor_font), "ZZ");
+      it.print(55, 371, id(sub_sensor_font), COLOR_OFF, "ZZ");
       if (id(plant4_battery_level).state < 25) {
-        it.print(76, 371, id(mdi_small), "\U000F0BC7"); //10.2px per character for x value
+        it.print(76, 371, id(mdi_small), COLOR_OFF, "\U000F0BC7"); //10.2px per character for x value
       } else if (id(plant4_battery_level).state < 15) {
-        it.print(76, 371, id(mdi_small), "\U000F0BC8");
+        it.print(76, 371, id(mdi_small), COLOR_OFF, "\U000F0BC8");
       }
       if(id(plant4_moisture).state < 25) {
-        it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), "%.0f%%", id(plant4_moisture).state);
-        it.print(id(plant4_moist_bar_alert_x), 418, id(mdi_small), "\U000F1133");
+        it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant4_moisture).state);
+        it.print(id(plant4_moist_bar_alert_x), 418, id(mdi_small), COLOR_OFF, "\U000F1133");
       } else {
-        it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), "%.0f%%", id(plant4_moisture).state);
+        it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), COLOR_OFF, "%.0f%%", id(plant4_moisture).state);
       }
-      it.filled_rectangle(60, 406, 4, 40); // bar chart y axis
-      it.filled_rectangle(60, 418, id(plant4_moist_bar), 25);
-      it.filled_rectangle(60, 446, 200, 4); // bar chart x axis
-      it.filled_rectangle(110, 443, 2, 12); // 25% hash
-      it.filled_rectangle(160, 443, 2, 12); // 50% hash
-      it.filled_rectangle(210, 443, 2, 12); // 75% hash
-      it.print(104, 455, id(footer_font), "25%");
-      it.print(154, 455, id(footer_font), "50%");
-      it.print(204, 455, id(footer_font), "75%");
+      it.filled_rectangle(60, 406, 4, 40, COLOR_OFF); // bar chart y axis
+      it.filled_rectangle(60, 418, id(plant4_moist_bar), 25, COLOR_OFF);
+      it.filled_rectangle(60, 446, 200, 4, COLOR_OFF); // bar chart x axis
+      it.filled_rectangle(110, 443, 2, 12, COLOR_OFF); // 25% hash
+      it.filled_rectangle(160, 443, 2, 12, COLOR_OFF); // 50% hash
+      it.filled_rectangle(210, 443, 2, 12, COLOR_OFF); // 75% hash
+      it.print(104, 455, id(footer_font), COLOR_OFF, "25%");
+      it.print(154, 455, id(footer_font), COLOR_OFF, "50%");
+      it.print(204, 455, id(footer_font), COLOR_OFF, "75%");
 
       /* FOOTER */
-      it.strftime(355, 455 , id(footer_font), TextAlign::TOP_LEFT , "%d/%b/%Y %H:%M", id(homeassistant_time).now());
+      it.strftime(355, 455 , id(footer_font), COLOR_OFF, TextAlign::TOP_LEFT , "%d/%b/%Y %H:%M", id(homeassistant_time).now());
