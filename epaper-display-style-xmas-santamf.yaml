@@ -71,7 +71,7 @@ web_server:
   port: 80
 
 image:
-  - file: "images/ei75-santa.bmp"
+  - file: "images/ei75-santa-i.bmp"
     type: binary
     id: bg_image
 
