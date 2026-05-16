@@ -213,6 +213,11 @@ sensor:
   - platform: uptime
     type: seconds
     name: Uptime Sensor
+
+binary_sensor:
+  - platform: status
+    name: "Garden Display"
+
 button:
   - platform: template
     name: "Update Display"
