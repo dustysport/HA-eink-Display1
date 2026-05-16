@@ -204,6 +204,12 @@ script:
         } else {
         id(plant4_moist_bar_label_x) = int((id(plant4_moist_bar))+(id(min_display_x))+3);
         }
+  - id: update_display
+    then:
+      - component.update: epaperdisplay
+      - logger.log: "Display Updated, pausing 60s"
+      - delay: 60s
+      - logger.log: "display eligible for update"
 
 sensor:
   - platform: homeassistant
@@ -259,6 +265,15 @@ sensor:
   - platform: uptime
     type: seconds
     name: Uptime Sensor
+
+button:
+  - platform: template
+    name: "Update Display"
+    icon: "mdi:refresh"
+    on_press:
+      then:
+        - logger.log: "Update Display Button Pressed"
+        - script.execute: update_display
 
 spi:
   clk_pin: GPIO13

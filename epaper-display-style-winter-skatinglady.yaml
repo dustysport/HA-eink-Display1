@@ -92,13 +92,6 @@ font:
     id:  mdi_small
     size: 26
     glyphs: [
-      # Wifi
-      '󰤫', # mdi-wifi-strength-alert-outline
-      '󰤟', # mdi-wifi-strength-1
-      '󰤢', # mdi-wifi-strength-2
-      '󰤥', # mdi-wifi-strength-3
-      '󰤨', # mdi-wifi-strength-4
-      '󰔏', # mdi-themometer
       "\U000F1133", #mdi-bottle-tonic-skull-outline
       "\U000F0BC7", #mdi-skull-crossbones-outline
       "\U000F0BC8", #mdi-skull-outline
