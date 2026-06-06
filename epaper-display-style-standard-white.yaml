@@ -71,9 +71,15 @@ web_server:
   port: 80
 
 image:
-  - file: "images/ei75-santa-i.bmp"
+  - file: "images/flower2-i.bmp"
     type: binary
     id: bg_image
+  - file: "images/coffeeEmerMC-i.bmp"
+    type: binary
+    id: cfe_image
+  - file: "images/FTEmerMC-i.bmp"
+    type: binary
+    id: fte_image
 
 font:
   - file: "gfonts://Roboto"
@@ -218,6 +224,22 @@ binary_sensor:
   - platform: status
     name: "Garden Display"
 
+  - platform: homeassistant
+    entity_id: input_boolean.coffee_emergency
+    id: coffee_emergency
+    on_state:
+      then:
+        - logger.log: "Coffee Emergency Triggered state: {id(coffee_emergency).state}"
+        - script.execute: update_display
+  
+  - platform: homeassistant
+    entity_id: input_boolean.french_toast_emergency
+    id: french_toast_emergency
+    on_state:
+      then:
+        - logger.log: "French Toast Emergency Triggered state: {id(french_toast_emergency).state}"
+        - script.execute: update_display
+
 button:
   - platform: template
     name: "Update Display"
@@ -254,18 +276,26 @@ display:
     model: 7.50inv2p
     lambda: |-
 
-      it.image(0, 0, id(bg_image));
+    
+      if (id(coffee_emergency).state == true) {
+        it.image(350, 0, id(cfe_image));
+      } else if (id(french_toast_emergency).state == true) {
+        it.image(350, 0, id(fte_image));
+      }
+        else {
+        it.image(0, 0, id(bg_image));
+      }
 
       /* PLANT 1 */
       it.print(55, 41, id(sub_sensor_font), "Philodendron Erubescen");
       if (id(plant1_battery_level).state < 25) {
-        it.print(275, 41, id(mdi_small), "\U000F0BC8"); //10.2px per character for x value
+        it.print(275, 41, id(mdi_small), "\U000F007B"); //10.2px per character for x value
       } else if (id(plant1_battery_level).state < 15) {
-        it.print(275, 41, id(mdi_small), "\U000F0BC7");
+        it.print(275, 41, id(mdi_small), "\U000F10CD");
       }
       if(id(plant1_moisture).state < 25) {
         it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), "%.0f%%", id(plant1_moisture).state);
-        it.print(id(plant1_moist_bar_alert_x), 88, id(mdi_small), "\U000F1133");
+        it.print(id(plant1_moist_bar_alert_x), 88, id(mdi_small), "\U000F058E");
       } else {
         it.printf(id(plant1_moist_bar_label_x), 88, id(main_sensor_unit), "%.0f%%", id(plant1_moisture).state);
       }
@@ -283,13 +313,13 @@ display:
       /* PLANT 2 */
       it.print(55, 151, id(sub_sensor_font), "Philodendron Hastatum");
       if (id(plant2_battery_level).state < 25) {
-        it.print(215, 151, id(mdi_small), "\U000F0BC8"); //10.2px per character for x value
+        it.print(215, 151, id(mdi_small), "\U000F007B"); //10.2px per character for x value
       } else if (id(plant2_battery_level).state < 15) {
-        it.print(215, 151, id(mdi_small), "\U000F0BC7");
+        it.print(215, 151, id(mdi_small), "\U000F10CD");
       }
       if(id(plant2_moisture).state < 25) {
         it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), "%.0f%%", id(plant2_moisture).state);
-        it.print(id(plant2_moist_bar_alert_x), 198, id(mdi_small), "\U000F1133");
+        it.print(id(plant2_moist_bar_alert_x), 198, id(mdi_small), "\U000F058E");
       } else {
         it.printf(id(plant2_moist_bar_label_x), 198, id(main_sensor_unit), "%.0f%%", id(plant2_moisture).state);
       }
@@ -306,13 +336,13 @@ display:
       /* PLANT 3 */
       it.print(55, 260, id(sub_sensor_font), "Syngonium");
       if (id(plant3_battery_level).state < 25) {
-        it.print(147, 260, id(mdi_small), "\U000F0BC7"); //10.2px per character for x value
+        it.print(147, 260, id(mdi_small), "\U000F007B"); //10.2px per character for x value
       } else if (id(plant3_battery_level).state < 15) {
-        it.print(147, 260, id(mdi_small), "\U000F0BC8");
+        it.print(147, 260, id(mdi_small), "\U000F10CD");
       }
       if(id(plant3_moisture).state < 25) {
         it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), "%.0f%%", id(plant3_moisture).state);
-        it.print(id(plant3_moist_bar_alert_x), 307, id(mdi_small), "\U000F1133");
+        it.print(id(plant3_moist_bar_alert_x), 307, id(mdi_small), "\U000F058E");
       } else {
         it.printf(id(plant3_moist_bar_label_x), 307, id(main_sensor_unit), "%.0f%%", id(plant3_moisture).state);
       }
@@ -329,13 +359,13 @@ display:
       /* PLANT 4 */
       it.print(55, 371, id(sub_sensor_font), "ZZ");
       if (id(plant4_battery_level).state < 25) {
-        it.print(76, 371, id(mdi_small), "\U000F0BC7"); //10.2px per character for x value
+        it.print(76, 371, id(mdi_small), "\U000F007B"); //10.2px per character for x value
       } else if (id(plant4_battery_level).state < 15) {
-        it.print(76, 371, id(mdi_small), "\U000F0BC8");
+        it.print(76, 371, id(mdi_small), "\U000F10CD");
       }
       if(id(plant4_moisture).state < 25) {
         it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), "%.0f%%", id(plant4_moisture).state);
-        it.print(id(plant4_moist_bar_alert_x), 418, id(mdi_small), "\U000F1133");
+        it.print(id(plant4_moist_bar_alert_x), 418, id(mdi_small), "\U000F058E");
       } else {
         it.printf(id(plant4_moist_bar_label_x), 418, id(main_sensor_unit), "%.0f%%", id(plant4_moisture).state);
       }
